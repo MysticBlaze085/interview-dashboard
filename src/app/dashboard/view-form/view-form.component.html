@@ -1,0 +1,41 @@
+<ng-container *ngIf="form">
+    <div class="row">
+        <div class="col-12">
+            <form [formGroup]="form">
+                <mat-card class="w-100 mb-3">
+                    <mat-card-header>
+                        <mat-card-title>Period: Year 2015</mat-card-title>
+                    </mat-card-header>
+                    <mat-form-field appearance="fill" class="state-selector">
+                        <mat-label>State</mat-label>
+                        <mat-select formControlName="state" (valueChange)="filter($event)">
+                            <mat-option *ngFor="let option of options" [value]="option">
+                                {{ option }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-card>
+            </form>
+        </div>
+        <div class="col-5">
+            <mat-card class="h-100" *ngIf="viewData">
+                <mat-card-header>
+                    <mat-card-title>{{ viewTitle }} Statistics:</mat-card-title>
+                </mat-card-header>
+                <mat-list role="list">
+                    <ng-container *ngFor="let data of viewData.data">
+                        <mat-list-item role="listitem" class="border-bottom">
+                            <div class="d-flex w-100 text-right">
+                                <div class="p-2 w-50">{{ data.title }}</div>
+                                <div class="ml-auto p-2 mr-4">{{ data.value }}</div>
+                            </div>
+                        </mat-list-item>
+                    </ng-container>
+                </mat-list>
+            </mat-card>
+        </div>
+        <div class="col">
+            <app-chart [chartData]="viewData"></app-chart>
+        </div>
+    </div>
+</ng-container>
